@@ -46,4 +46,6 @@
     <string name="purple_logo_desc">purple logo image that appears first</string>
     <string name="title_banner">title banner</string>
     <string name="exit_action">Exit</string>
+    <string name="background_image">Background Image</string>
+    <string name="apiCall_button">Button to make api call</string>
 </resources>
