@@ -6,7 +6,9 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="2653">
+        motion:duration="3101"
+        motion:autoTransition="animateToEnd">
+
        <KeyFrameSet>
        </KeyFrameSet>
         <OnSwipe motion:maxAcceleration="16.37"
