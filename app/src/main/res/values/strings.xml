@@ -53,4 +53,5 @@
     <string name="order_by_list_id_button">Order By List ID and Name</string>
     <string name="order_by_name_button">Order By Name</string>
     <string name="list_id_heading">List ID:</string>
+    <string name="name_section">Name:</string>
 </resources>
