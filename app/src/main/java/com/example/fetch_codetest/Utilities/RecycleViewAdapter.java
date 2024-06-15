@@ -16,10 +16,21 @@ import java.util.List;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ItemViewHolder> {
 
     private List<Items> _list = new ArrayList<>();
-    public void apiList(List<Items> items){
-        _list = items;
+
+    public RecycleViewAdapter(){
+        _list = new ArrayList<>();
+    }
+
+    public RecycleViewAdapter(List<Items> item){
+        _list = item;
         notifyDataSetChanged();
     }
+    public void setItems(List<Items> items) {
+        _list.clear();
+        _list.addAll(items);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

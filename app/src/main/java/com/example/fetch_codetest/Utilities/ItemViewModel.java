@@ -1,5 +1,6 @@
 package com.example.fetch_codetest.Utilities;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -21,6 +22,14 @@ public class ItemViewModel extends ViewModel {
         itemsLiveData = new MutableLiveData<>();
         errorLiveData = new MutableLiveData<>();
         fetchData();
+    }
+
+    public LiveData<List<Items>> getItemsLiveData() {
+        return itemsLiveData;
+    }
+
+    public LiveData<String> getErrorLiveData() {
+        return errorLiveData;
     }
 
     private void fetchData() {
