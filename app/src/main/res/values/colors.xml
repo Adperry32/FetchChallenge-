@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="fetchPurple">#300D38</color>
+    <color name="fetchGold">#FBA919</color>
+    <color name="cardviewPurple">#826d8c</color>
 </resources>
