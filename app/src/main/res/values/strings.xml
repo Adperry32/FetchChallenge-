@@ -54,4 +54,5 @@
     <string name="order_by_name_button">Order By Name</string>
     <string name="list_id_heading">List ID:</string>
     <string name="name_section">Name:</string>
+    <string name="exit_button">EXIT</string>
 </resources>

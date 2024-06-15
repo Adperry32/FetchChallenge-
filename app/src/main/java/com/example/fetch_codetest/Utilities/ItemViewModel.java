@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -15,8 +17,8 @@ import retrofit2.Response;
 
 public class ItemViewModel extends ViewModel {
 
-    private MutableLiveData<List<Items>> itemsLiveData;
-    private MutableLiveData<String> errorLiveData;
+    private final MutableLiveData<List<Items>> itemsLiveData;
+    private final MutableLiveData<String> errorLiveData;
 
     public ItemViewModel() {
         itemsLiveData = new MutableLiveData<>();
@@ -48,15 +50,15 @@ public class ItemViewModel extends ViewModel {
                             .collect(Collectors.toList());
 
                     // Sort by listId, then by name
-                    Collections.sort(items, new Comparator<Items>() {
-                        @Override
-                        public int compare(Items o1, Items o2) {
-                            int listIdComparison = Integer.compare(o1.getListId(), o2.getListId());
-                            if (listIdComparison != 0) {
-                                return listIdComparison;
-                            }
-                            return o1.getName().compareToIgnoreCase(o2.getName());
+                    Collections.sort(items, (o1, o2) -> {
+
+                        int listIdComparison = Integer.compare(o1.getListId(), o2.getListId());
+                        if (listIdComparison != 0) {
+                            return listIdComparison;
                         }
+
+                        // If listId is the same, compare by name with natural sorting
+                        return compareNames(o1.getName(), o2.getName());
                     });
 
                     itemsLiveData.setValue(items);
@@ -69,5 +71,36 @@ public class ItemViewModel extends ViewModel {
                 errorLiveData.setValue("An error occurred: " + t.getMessage());
             }
         });
+    }
+
+    //need to add a helper class to sort the names and numbers
+    private int compareNames(String name1, String name2) {
+        // Regular expression to split the name into segments of text and numbers
+        Pattern pattern = Pattern.compile("(\\D*)(\\d*)");
+        Matcher matcher1 = pattern.matcher(name1);
+        Matcher matcher2 = pattern.matcher(name2);
+
+        while (matcher1.find() && matcher2.find()) {
+            // Compare segments of text
+            String text1 = matcher1.group(1);
+            String text2 = matcher2.group(1);
+            int textComparison = text1.compareTo(text2);
+            if (textComparison != 0) {
+                return textComparison;
+            }
+
+            // Compare segments of numbers (parse as integers)
+            String num1 = matcher1.group(2);
+            String num2 = matcher2.group(2);
+            Integer num1Int = num1.isEmpty() ? 0 : Integer.parseInt(num1);
+            Integer num2Int = num2.isEmpty() ? 0 : Integer.parseInt(num2);
+            int numComparison = num1Int.compareTo(num2Int);
+            if (numComparison != 0) {
+                return numComparison;
+            }
+        }
+
+        // If one name is a prefix of the other, shorter name should come first
+        return Integer.compare(matcher1.group().length(), matcher2.group().length());
     }
 }
