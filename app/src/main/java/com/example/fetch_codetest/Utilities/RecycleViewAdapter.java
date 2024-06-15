@@ -1,4 +1,4 @@
-package com.example.fetch_codetest;
+package com.example.fetch_codetest.Utilities;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.fetch_codetest.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(@NonNull RecycleViewAdapter.ItemViewHolder holder, int position) {
 
         Items item = _list.get(position);
-        holder.bind(item);
+        holder.listIdTextView.setText(String.valueOf(item.getListId()));
+        holder.nameTextView.setText(item.getName());
     }
 
     @Override
@@ -42,16 +45,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            
+
             listIdTextView = itemView.findViewById(R.id.itemListId);
             nameTextView = itemView.findViewById(R.id.itemName);
         }
 
-        public void bind(Items item) {
-
-            listIdTextView.setText(String.valueOf(item.getListId()));
-            nameTextView.setText(item.getName());
-        }
     }
 }
 
